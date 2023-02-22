@@ -1,14 +1,11 @@
 <script>
-import _ from 'lodash-es'
-import moment from 'moment'
-import ClickOutside from 'vue-click-outside';
+
 export default {
   name: 'HelloWorld',
   props: {
     msg: String
   },
   directives: {
-    ClickOutside
   },
   data() {
     return {
