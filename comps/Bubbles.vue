@@ -4,8 +4,7 @@ export default {
   props: {
     msg: String
   },
-  directives: {
-  },
+  directives: {},
   data() {
     return {
       chartHeight: 680,
@@ -14,125 +13,139 @@ export default {
       selectedAuthors: [],
       clickedAuthor: 0,
       dataNew: {
-          commits: [
-              {
-                id: 1,
-                ts: 1288202623005,
-                hash: "1234567890",
-                testPercentage: 100,
-                size: 55,
-                author: "John Doe",
-                message: "some words in a commit message",
-                commitUrl: "https://github.com/paul-hammant/Commit-Bubbles-Vue/mockCommits/1234567890.txt"
-              },
-              {
-                id: 2,
-                ts: 1288121623006,
-                hash: "13432435645",
-                testPercentage: 30,
-                size: 81,
-                author: "John Doe",
-                message: "some changes",
-                commitUrl: "https://github.com/paul-hammant/Commit-Bubbles-Vue/mockCommits/13432435645.txt"
-              },
-              {
-                id: 3,
-                ts: 1288128023006,
-                hash: "12232435645",
-                testPercentage: 50,
-                size: 50,
-                message: "testing testing 123",
-                author: "A bug fix",
-                commitUrl: "https://github.com/paul-hammant/Commit-Bubbles-Vue/mockCommits/12232435645.txt"
-              },
-              {
-                id: 4,
-                ts: 1288202823006,
-                hash: "12332343455",
-                testPercentage: 55,
-                size: 50,
-                author: "Hector",
-                message: "the test pyramid is best",
-                commitUrl: "https://github.com/paul-hammant/Commit-Bubbles-Vue/mockCommits/12332343455.txt"
-              },
-              {
-                id: 5,
-                ts: 1288323623006,
-                hash: "2342342344",
-                testPercentage: 15,
-                size: 22,
-                author: "Mildred",
-                message: "testing testing 123",
-                commitUrl: "https://github.com/paul-hammant/Commit-Bubbles-Vue/mockCommits/2342342344.txt"
-              }
-            ]
-        },
-        i: 10,
-        pickedAuthorObject: {}
-      }
-    },
-    computed: {
-      startDate(){return moment(new Date(this.from)).format('MM/DD/yy HH:mm')},
-      endDate(){return moment(new Date(this.to)).format('MM/DD/yy HH:mm')},
-      authors() { return _.uniq(_.map(this.dataNew.commits, 'author')) },
-      selected() { return {authors: this.authors.slice(0)} },
-      from() { return _.min(this.getValues)},
-      to() { return  _.max(this.getValues)},
-      timeSpan() { return moment.duration(moment(this.from).diff(moment(this.to))).humanize() },
-      getValues() {
-        return _.map(this.dataNew.commits, "ts")
+        commits: [
+          {
+            id: 1,
+            ts: 1288202623005,
+            hash: "1234567890",
+            testPercentage: 100,
+            size: 55,
+            author: "John Doe",
+            message: "some words in a commit message",
+            commitUrl: "https://github.com/paul-hammant/Commit-Bubbles-Vue/mockCommits/1234567890.txt"
+          },
+          {
+            id: 2,
+            ts: 1288121623006,
+            hash: "13432435645",
+            testPercentage: 30,
+            size: 81,
+            author: "John Doe",
+            message: "some changes",
+            commitUrl: "https://github.com/paul-hammant/Commit-Bubbles-Vue/mockCommits/13432435645.txt"
+          },
+          {
+            id: 3,
+            ts: 1288128023006,
+            hash: "12232435645",
+            testPercentage: 50,
+            size: 50,
+            message: "testing testing 123",
+            author: "A bug fix",
+            commitUrl: "https://github.com/paul-hammant/Commit-Bubbles-Vue/mockCommits/12232435645.txt"
+          },
+          {
+            id: 4,
+            ts: 1288202823006,
+            hash: "12332343455",
+            testPercentage: 55,
+            size: 50,
+            author: "Hector",
+            message: "the test pyramid is best",
+            commitUrl: "https://github.com/paul-hammant/Commit-Bubbles-Vue/mockCommits/12332343455.txt"
+          },
+          {
+            id: 5,
+            ts: 1288323623006,
+            hash: "2342342344",
+            testPercentage: 15,
+            size: 22,
+            author: "Mildred",
+            message: "testing testing 123",
+            commitUrl: "https://github.com/paul-hammant/Commit-Bubbles-Vue/mockCommits/2342342344.txt"
+          }
+        ]
       },
-      
+      i: 10,
+      pickedAuthorObject: {}
+    }
+  },
+  computed: {
+    startDate() {
+      return moment(new Date(this.from)).format('MM/DD/yy HH:mm')
     },
-    mounted() {
-      this.checkAllAuthors;
+    endDate() {
+      return moment(new Date(this.to)).format('MM/DD/yy HH:mm')
+    },
+    authors() {
+      return _.uniq(_.map(this.dataNew.commits, 'author'))
+    },
+    selected() {
+      return {authors: this.authors.slice(0)}
+    },
+    from() {
+      return _.min(this.getValues)
+    },
+    to() {
+      return _.max(this.getValues)
+    },
+    timeSpan() {
+      return moment.duration(moment(this.from).diff(moment(this.to))).humanize()
+    },
+    getValues() {
+      return _.map(this.dataNew.commits, "ts")
+    },
+
+  },
+  mounted() {
+    this.checkAllAuthors;
+    this.selectedAuthors = this.authors;
+  },
+  methods: {
+    clickAuthor(dat) {
+      this.clickedAuthor = dat.id;
+      this.pickedAuthorObject = dat;
+      console.log('OVBDFEDASDLKJASDLJASDLKJASDLKASJDLASKDJALSKDJ')
+    },
+    checkAllAuthors() {
       this.selectedAuthors = this.authors;
     },
-    methods: {
-      clickAuthor(dat) {
-        this.clickedAuthor = dat.id;
-        this.pickedAuthorObject = dat;
-        console.log('OVBDFEDASDLKJASDLJASDLKJASDLKASJDLASKDJALSKDJ')
-      },
-      checkAllAuthors() {
-        this.selectedAuthors = this.authors;
-      },
-      cleanAllAuthors() {
-        this.selectedAuthors = [];
-      },
-      commitDate(ts) {
-        return moment(new Date(ts)).format('MM/DD/yy HH:mm:ss')
-      }
+    cleanAllAuthors() {
+      this.selectedAuthors = [];
+    },
+    commitDate(ts) {
+      return moment(new Date(ts)).format('MM/DD/yy HH:mm:ss')
     }
+  }
 }
 </script>
 
 <template>
   <svg xmlns="http://www.w3.org/2000/svg" xmlns:xl="http://www.w3.org/1999/xlink" version="1.1" width="1220"
-   :height="chartHeight + topMargin + 5"
-   xmlns:dc="http://purl.org/dc/elements/1.1/">
-  <rect fill="#FEFCFF" x="100" :y="topMargin" width="1100" :height="chartHeight"
-/>
-  <g font-family="Verdana" font-size="16">
+       :height="chartHeight + topMargin + 5"
+       xmlns:dc="http://purl.org/dc/elements/1.1/">
+    <rect fill="#FEFCFF" x="100" :y="topMargin" width="1100" :height="chartHeight"
+    />
+    <g font-family="Verdana" font-size="16">
       <text x="0" :y="topMargin + 8">All Test</text>
       <text x="0" :y="chartHeight/2 + 5 + topMargin">Equal</text>
       <text x="0" :y="chartHeight + topMargin">All Prod</text>
       <text x="1140" :y="chartHeight/2 + 17 + topMargin">Time &#10148;</text>
-  </g>
-  <g style="stroke:rgb(0,0,0);stroke-width:2">
+    </g>
+    <g style="stroke:rgb(0,0,0);stroke-width:2">
       <line x1="100" :y1="chartHeight/2 + topMargin" x2="1200" :y2="chartHeight/2 + topMargin"/>
       <line x1="100" :y1="topMargin +2" x2="100" :y2="chartHeight + topMargin+2"/>
-  </g>
-  <g font-family="Verdana" font-size="8" v-for="i in [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]" v-bind:key="i"
-     style="stroke:rgb(0,0,0);stroke-width:0.5">
+    </g>
+    <g font-family="Verdana" font-size="8" v-for="i in [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]" v-bind:key="i"
+       style="stroke:rgb(0,0,0);stroke-width:0.5">
       <line v-if="i !== 5" x1="100" stroke-dasharray="10,35"
             :y1="chartHeight + 2 - (chartHeight/10 * i) + topMargin" x2="1200"
             :y2="chartHeight - (chartHeight/10 * i) + topMargin"/>
       <text fill="white" x="70" :y="chartHeight + 3  - (chartHeight/10 * i) + topMargin">
-          {{100-(10*i)}}:{{(10*i)}}
+        {{ 100 - (10 * i) }}:{{ (10 * i) }}
       </text>
-  </g>
-  <g stroke="black">
+    </g>
+    <g stroke="black">
       <circle v-for="commit in dataNew.commits" v-bind:key="commit" v-show="selectedAuthors.indexOf(commit.author) > -1"
               :cx="100 + (commit.ts - from) * 1100 / (to - from)"
               :cy="chartHeight - (commit.testPercentage * chartHeight/100) + topMargin"
@@ -140,40 +153,41 @@ export default {
               :stroke-opacity="(clickedAuthor === commit.id) ? 1 : 0"
               :fill="colors[authors.indexOf(commit.author)]" fill-opacity="0.5"
               @click="clickAuthor(commit)"/>
-  </g>
-  <foreignObject class="node" x="0" y="0" width="1200" :height="topMargin">
+    </g>
+    <foreignObject class="node" x="0" y="0" width="1200" :height="topMargin">
       <body xmlns="http://www.w3.org/1999/xhtml">
-      <h2>{{timeSpan}} shown between {{startDate}} and {{endDate}}</h2>
+      <h2>{{ timeSpan }} shown between {{ startDate }} and {{ endDate }}</h2>
       <div>Show authors:
-          <label v-for="author in authors" v-bind:key="author" :style="'color: ' + colors[authors.indexOf(author)]">
-              <input type="checkbox" v-model="selectedAuthors" :value="author"> {{author}}
-          </label>
-          <button @click="checkAllAuthors()" style="margin: 0 0 5px 5px">All authors</button>
-          <button @click="cleanAllAuthors()" style="margin: 0 0 5px 5px">None
-          </button>
+        <label v-for="author in authors" v-bind:key="author" :style="'color: ' + colors[authors.indexOf(author)]">
+          <input type="checkbox" v-model="selectedAuthors" :value="author"> {{ author }}
+        </label>
+        <button @click="checkAllAuthors()" style="margin: 0 0 5px 5px">All authors</button>
+        <button @click="cleanAllAuthors()" style="margin: 0 0 5px 5px">None
+        </button>
       </div>
       </body>
-  </foreignObject>
-  <g font-family="Verdana" font-size="16" v-show="clickedAuthor" @click="clickedAuthor = 0">
-        <rect style="stroke:rgb(0,0,0);stroke-width:2" x="300" y="300" height="300" width="400" fill="white" opacity="0.7"/>
-        <text class="close-btn" @click="clickedAuthor = 0" x="55%" y="330">X</text>
-        <text x="320" y="330">Selected Commit</text>
-        <text x="320" y="380">Commit:</text>
-        <foreignObject x="395" y="363" width="900" height="100">
-          <a _target="_blank" v-bind:href="pickedAuthorObject.commitUrl">
-            {{pickedAuthorObject.message}}
-          </a>
-        </foreignObject>
-        <text x="320" y="430">Author: {{pickedAuthorObject.author}}</text>
-        <text x="320" y="480">Date/Time: {{commitDate(pickedAuthorObject.ts)}}</text>
-        <text x="320" y="530">Size: {{pickedAuthorObject.size}}</text>
-        <text x="320" y="580">Test Percentage: {{pickedAuthorObject.testPercentage}}</text>
+    </foreignObject>
+    <g font-family="Verdana" font-size="16" v-show="clickedAuthor" @click="clickedAuthor = 0">
+      <rect style="stroke:rgb(0,0,0);stroke-width:2" x="300" y="300" height="300" width="400" fill="white"
+            opacity="0.7"/>
+      <text class="close-btn" @click="clickedAuthor = 0" x="55%" y="330">X</text>
+      <text x="320" y="330">Selected Commit</text>
+      <text x="320" y="380">Commit:</text>
+      <foreignObject x="395" y="363" width="900" height="100">
+        <a _target="_blank" v-bind:href="pickedAuthorObject.commitUrl">
+          {{ pickedAuthorObject.message }}
+        </a>
+      </foreignObject>
+      <text x="320" y="430">Author: {{ pickedAuthorObject.author }}</text>
+      <text x="320" y="480">Date/Time: {{ commitDate(pickedAuthorObject.ts) }}</text>
+      <text x="320" y="530">Size: {{ pickedAuthorObject.size }}</text>
+      <text x="320" y="580">Test Percentage: {{ pickedAuthorObject.testPercentage }}</text>
     </g>
-</svg>
+  </svg>
 </template>
 
 <style scoped>
-  .close-btn:hover {
-    cursor: pointer;
-  }
+.close-btn:hover {
+  cursor: pointer;
+}
 </style>
