@@ -20,7 +20,9 @@ export default {
             hash: "1234567890",
             testPercentage: 100,
             size: 55,
-            author: "John Doe"
+            author: "John Doe",
+            message: "some words in a commit message",
+            commitUrl: "https://github.com/paul-hammant/Commit-Bubbles-Vue/mockCommits/1234567890.txt"
           },
           {
             id: 2,
@@ -28,7 +30,9 @@ export default {
             hash: "13432435645",
             testPercentage: 30,
             size: 81,
-            author: "John Doe"
+            author: "John Doe",
+            message: "some changes",
+            commitUrl: "https://github.com/paul-hammant/Commit-Bubbles-Vue/mockCommits/13432435645.txt"
           },
           {
             id: 3,
@@ -36,7 +40,9 @@ export default {
             hash: "12232435645",
             testPercentage: 50,
             size: 50,
-            author: "Hector"
+            message: "testing testing 123",
+            author: "A bug fix",
+            commitUrl: "https://github.com/paul-hammant/Commit-Bubbles-Vue/mockCommits/12232435645.txt"
           },
           {
             id: 4,
@@ -44,7 +50,9 @@ export default {
             hash: "12332343455",
             testPercentage: 55,
             size: 50,
-            author: "Hector"
+            author: "Hector",
+            message: "the test pyramid is best",
+            commitUrl: "https://github.com/paul-hammant/Commit-Bubbles-Vue/mockCommits/12332343455.txt"
           },
           {
             id: 5,
@@ -52,7 +60,9 @@ export default {
             hash: "2342342344",
             testPercentage: 15,
             size: 22,
-            author: "Mildred"
+            author: "Mildred",
+            message: "testing testing 123",
+            commitUrl: "https://github.com/paul-hammant/Commit-Bubbles-Vue/mockCommits/2342342344.txt"
           }
         ], 
         i: 10,
@@ -88,6 +98,9 @@ export default {
       cleanAllAuthors() {
         this.selectedAuthors = [];
       },
+      commitDate(ts) {
+        return moment(new Date(ts)).format('MM/DD/yy HH:mm:ss')
+      }
     }
 }
 </script>
@@ -110,7 +123,7 @@ export default {
   </g>
   <g font-family="Verdana" font-size="8" v-for="i in [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]" v-bind:key="i"
      style="stroke:rgb(0,0,0);stroke-width:0.5">
-      <line v-if="i != 5" x1="100" stroke-dasharray="10,35"
+      <line v-if="i !== 5" x1="100" stroke-dasharray="10,35"
             :y1="chartHeight + 2 - (chartHeight/10 * i) + topMargin" x2="1200"
             :y2="chartHeight - (chartHeight/10 * i) + topMargin"/>
       <text fill="white" x="70" :y="chartHeight + 3  - (chartHeight/10 * i) + topMargin">
@@ -122,7 +135,7 @@ export default {
               :cx="100 + (dat.ts - from) * 1100 / (to - from)"
               :cy="chartHeight - (dat.testPercentage * chartHeight/100) + topMargin"
               :r="dat.size * (chartHeight/600)"
-              :stroke-opacity="(clickedAuthor == dat.id) ? 1 : 0"
+              :stroke-opacity="(clickedAuthor === dat.id) ? 1 : 0"
               :fill="colors[authors.indexOf(dat.author)]" fill-opacity="0.5"
               @click="clickAuthor(dat)"/>
   </g>
@@ -143,9 +156,14 @@ export default {
         <rect style="stroke:rgb(0,0,0);stroke-width:2" x="300" y="300" height="300" width="400" fill="white" opacity="0.7"/>
         <text class="close-btn" @click="clickedAuthor = 0" x="55%" y="330">X</text>
         <text x="320" y="330">Selected Commit</text>
-        <text x="320" y="380">Hash: {{pickedAuthorObject.hash}}</text>
+        <text x="320" y="380">Commit:</text>
+        <foreignObject x="395" y="363" width="900" height="100">
+          <a _target="_blank" v-bind:href="pickedAuthorObject.commitUrl">
+            {{pickedAuthorObject.message}}
+          </a>
+        </foreignObject>
         <text x="320" y="430">Author: {{pickedAuthorObject.author}}</text>
-        <text x="320" y="480">Date/Time: </text>
+        <text x="320" y="480">Date/Time: {{commitDate(pickedAuthorObject.ts)}}</text>
         <text x="320" y="530">Size: {{pickedAuthorObject.size}}</text>
         <text x="320" y="580">Test Percentage: {{pickedAuthorObject.testPercentage}}</text>
     </g>
