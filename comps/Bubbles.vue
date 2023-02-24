@@ -13,58 +13,60 @@ export default {
       colors: ["#FFA07A", "#20B2AA", "#778899", "#B0C4DE", "#F5F5DC", "#00FF00", "#000000", "#32CD32", "#FAF0E6", "#0000FF", "#FF00FF", "#8A2BE2", "#800000", "#A52A2A", "#66CDAA", "#DEB887", "#0000CD", "#5F9EA0", "#7FFF00", "#9370DB", "#D2691E", "#FF7F50", "#7B68EE", "#6495ED", "#48D1CC", "#DC143C", "#C71585", "#00FFFF", "#191970", "#00008B", "#F5FFFA", "#008B8B", "#FFE4E1", "#B8860B", "#A9A9A9", "#006400", "#000080", "#BDB76B", "#8B008B", "#808000", "#6B8E23", "#FF8C00", "#FFA500", "#9932CC", "#FF4500", "#8B0000", "#DA70D6", "#E9967A", "#EEE8AA", "#8FBC8F", "#98FB98", "#483D8B", "#AFEEEE", "#2F4F4F", "#DB7093", "#00CED1", "#9400D3", "#FFDAB9", "#FF1493", "#CD853F", "#00BFFF", "#FFC0CB", "#696969", "#DDA0DD", "#1E90FF", "#B0E0E6", "#B22222", "#800080", "#FFFAF0", "#FF0000", "#228B22", "#BC8F8F", "#FF00FF", "#4169E1", "#DCDCDC", "#FA8072", "#FFD700", "#FAA460", "#DAA520", "#2E8B57", "#808080", "#008000", "#A0522D", "#ADFF2F", "#C0C0C0", "#87CEEB", "#FF69B4", "#6A5ACD", "#CD5C5C", "#708090", "#4B0082", "#00FF7F", "#F0E68C", "#4682B4", "#E6E6FA", "#D2B48C", "#008080", "#7CFC00", "#D8BFD8", "#FFFACD", "#FF6347", "#ADD8E6", "#40E0D0", "#F08080", "#EE82EE", "#F5DEB3", "#FAFAD2", "#90EE90", "#D3D3D3", "#FFFF00", "#FFB6C1"],
       selectedAuthors: [],
       clickedAuthor: 0,
-      dataNew: [
-          {
-            id: 1,
-            ts: 1288202623005,
-            hash: "1234567890",
-            testPercentage: 100,
-            size: 55,
-            author: "John Doe",
-            message: "some words in a commit message",
-            commitUrl: "https://github.com/paul-hammant/Commit-Bubbles-Vue/mockCommits/1234567890.txt"
-          },
-          {
-            id: 2,
-            ts: 1288121623006,
-            hash: "13432435645",
-            testPercentage: 30,
-            size: 81,
-            author: "John Doe",
-            message: "some changes",
-            commitUrl: "https://github.com/paul-hammant/Commit-Bubbles-Vue/mockCommits/13432435645.txt"
-          },
-          {
-            id: 3,
-            ts: 1288128023006,
-            hash: "12232435645",
-            testPercentage: 50,
-            size: 50,
-            message: "testing testing 123",
-            author: "A bug fix",
-            commitUrl: "https://github.com/paul-hammant/Commit-Bubbles-Vue/mockCommits/12232435645.txt"
-          },
-          {
-            id: 4,
-            ts: 1288202823006,
-            hash: "12332343455",
-            testPercentage: 55,
-            size: 50,
-            author: "Hector",
-            message: "the test pyramid is best",
-            commitUrl: "https://github.com/paul-hammant/Commit-Bubbles-Vue/mockCommits/12332343455.txt"
-          },
-          {
-            id: 5,
-            ts: 1288323623006,
-            hash: "2342342344",
-            testPercentage: 15,
-            size: 22,
-            author: "Mildred",
-            message: "testing testing 123",
-            commitUrl: "https://github.com/paul-hammant/Commit-Bubbles-Vue/mockCommits/2342342344.txt"
-          }
-        ], 
+      dataNew: {
+          commits: [
+              {
+                id: 1,
+                ts: 1288202623005,
+                hash: "1234567890",
+                testPercentage: 100,
+                size: 55,
+                author: "John Doe",
+                message: "some words in a commit message",
+                commitUrl: "https://github.com/paul-hammant/Commit-Bubbles-Vue/mockCommits/1234567890.txt"
+              },
+              {
+                id: 2,
+                ts: 1288121623006,
+                hash: "13432435645",
+                testPercentage: 30,
+                size: 81,
+                author: "John Doe",
+                message: "some changes",
+                commitUrl: "https://github.com/paul-hammant/Commit-Bubbles-Vue/mockCommits/13432435645.txt"
+              },
+              {
+                id: 3,
+                ts: 1288128023006,
+                hash: "12232435645",
+                testPercentage: 50,
+                size: 50,
+                message: "testing testing 123",
+                author: "A bug fix",
+                commitUrl: "https://github.com/paul-hammant/Commit-Bubbles-Vue/mockCommits/12232435645.txt"
+              },
+              {
+                id: 4,
+                ts: 1288202823006,
+                hash: "12332343455",
+                testPercentage: 55,
+                size: 50,
+                author: "Hector",
+                message: "the test pyramid is best",
+                commitUrl: "https://github.com/paul-hammant/Commit-Bubbles-Vue/mockCommits/12332343455.txt"
+              },
+              {
+                id: 5,
+                ts: 1288323623006,
+                hash: "2342342344",
+                testPercentage: 15,
+                size: 22,
+                author: "Mildred",
+                message: "testing testing 123",
+                commitUrl: "https://github.com/paul-hammant/Commit-Bubbles-Vue/mockCommits/2342342344.txt"
+              }
+            ]
+        },
         i: 10,
         pickedAuthorObject: {}
       }
@@ -72,13 +74,13 @@ export default {
     computed: {
       startDate(){return moment(new Date(this.from)).format('MM/DD/yy HH:mm')},
       endDate(){return moment(new Date(this.to)).format('MM/DD/yy HH:mm')},
-      authors() { return _.uniq(_.map(this.dataNew, 'author')) },
+      authors() { return _.uniq(_.map(this.dataNew.commits, 'author')) },
       selected() { return {authors: this.authors.slice(0)} },
       from() { return _.min(this.getValues)},
       to() { return  _.max(this.getValues)},
       timeSpan() { return moment.duration(moment(this.from).diff(moment(this.to))).humanize() },
       getValues() {
-        return _.map(this.dataNew, "ts")
+        return _.map(this.dataNew.commits, "ts")
       },
       
     },
@@ -131,13 +133,13 @@ export default {
       </text>
   </g>
   <g stroke="black">
-      <circle v-for="dat in dataNew" v-bind:key="dat" v-show="selectedAuthors.indexOf(dat.author) > -1"
-              :cx="100 + (dat.ts - from) * 1100 / (to - from)"
-              :cy="chartHeight - (dat.testPercentage * chartHeight/100) + topMargin"
-              :r="dat.size * (chartHeight/600)"
-              :stroke-opacity="(clickedAuthor === dat.id) ? 1 : 0"
-              :fill="colors[authors.indexOf(dat.author)]" fill-opacity="0.5"
-              @click="clickAuthor(dat)"/>
+      <circle v-for="commit in dataNew.commits" v-bind:key="commit" v-show="selectedAuthors.indexOf(commit.author) > -1"
+              :cx="100 + (commit.ts - from) * 1100 / (to - from)"
+              :cy="chartHeight - (commit.testPercentage * chartHeight/100) + topMargin"
+              :r="commit.size * (chartHeight/600)"
+              :stroke-opacity="(clickedAuthor === commit.id) ? 1 : 0"
+              :fill="colors[authors.indexOf(commit.author)]" fill-opacity="0.5"
+              @click="clickAuthor(commit)"/>
   </g>
   <foreignObject class="node" x="0" y="0" width="1200" :height="topMargin">
       <body xmlns="http://www.w3.org/1999/xhtml">
