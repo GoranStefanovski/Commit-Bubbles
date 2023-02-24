@@ -1,24 +1,20 @@
-<!DOCTYPE html>
-<html lang="">
-  <head>
-    <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
-    <meta content="utf-8" http-equiv="encoding">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/velocity/1.5.2/velocity.min.js" integrity="sha512-cWbIzX5dm6Uyc6jg+DmJTWherzF5usoVXN/3MYggEQhsgfOJdfIPAvz5Ktprf4Gx2HoxVUqMIVDuyBp5PQ1Hwg==" crossorigin="anonymous"></script>
-    <script src="https://unpkg.com/vue@next"></script>
-    <script src="https://cdn.jsdelivr.net/npm/vue3-sfc-loader@0.7.3/dist/vue3-sfc-loader.js"></script>
-  
-    <script src="lodash.js"></script>
-    <title>Commit Bubbles</title>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
-    <script src="https://vitalets.github.io/checklist-model/checklist-model.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.20.1/moment.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment-with-locales.min.js"></script>
-   </head>
-  <body>
-    <div id="app"></div>
-    <script>
-  const options = {
+<html>
+<head>
+  <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+  <meta content="utf-8" http-equiv="encoding">
+  <script src="https://unpkg.com/vue@next"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vue3-sfc-loader@0.7.3/dist/vue3-sfc-loader.js"></script>
+  <title>Commit Bubbles</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+  <script src="https://vitalets.github.io/checklist-model/checklist-model.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.20.1/moment.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment-with-locales.min.js"></script>
+</head>
+<div>
+  <div id="app"></div>
+
+  <script>
+    const options = {
       moduleCache: {
         vue: Vue
       },
@@ -37,12 +33,12 @@
     const { loadModule } = window['vue3-sfc-loader'];
     const app = Vue.createApp({
       components: {
-        'app': Vue.defineAsyncComponent( () => loadModule('../src/App.vue', options) )
+        'my-component': Vue.defineAsyncComponent( () => loadModule('./comps/Bubbles.vue', options) )
       },
-      template: '<app></app>'
+      template: '<my-component></my-component>'
     });
     app.mount('#app');
-  
-    </script>
-  </body>
+  </script>
+</div>
+
 </html>
