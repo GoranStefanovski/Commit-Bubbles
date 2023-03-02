@@ -4,10 +4,11 @@
   <meta content="utf-8" http-equiv="encoding">
   <script src="https://unpkg.com/vue@next"></script>
   <script src="https://cdn.jsdelivr.net/npm/vue3-sfc-loader@0.7.3/dist/vue3-sfc-loader.js"></script>
-  <title>Commit Bubbles</title>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.20.1/moment.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment-with-locales.min.js"></script>
+  <script src="https://unpkg.com/vue-router@4"></script>
+  <title>Commit Bubbles</title>
 </head>
 <div>
   <div id="app"></div>
@@ -30,12 +31,26 @@
       },
     }
     const { loadModule } = window['vue3-sfc-loader'];
+    const Home = { template: '<div>Home</div>' }
     const app = Vue.createApp({
       components: {
         'my-component': Vue.defineAsyncComponent( () => loadModule('./comps/Bubbles.vue', options) )
       },
       template: '<my-component></my-component>'
     });
+        const routes = [
+      { path: '/', component: Home },
+    ]
+
+    // 3. Create the router instance and pass the `routes` option
+    // You can pass in additional options here, but let's
+    // keep it simple for now.
+    const router = VueRouter.createRouter({
+      // 4. Provide the history implementation to use. We are using the hash history for simplicity here.
+      history: VueRouter.createWebHashHistory(),
+      routes, 
+    })
+    app.use(router)
     app.mount('#app');
   </script>
 </div>

@@ -18,10 +18,17 @@ export default {
       commits: [],
       i: 10,
       pickedAuthorObject: {},
+      queryAuthors: []
     }
   },
   mounted() {
     this.checkAllAuthors;
+  },
+  watch: {
+    // whenever question changes, this function will run
+    selectedAuthors(a, b) {
+      router.push({ path: '/', query: {authors: this.selectedAuthors.join(",")}})
+    }
   },
   computed: {
     startDate() {
@@ -54,8 +61,9 @@ export default {
       .then(response => response.json())
       .then(data => {
         this.commits = data;
-        this.selectedAuthors = this.authors;
+        // this.selectedAuthors = this.authors;
       });
+      this.selectedAuthors = this.$route.query.authors.split(',');
   },
   methods: {
     clickAuthor(dat) {
@@ -68,6 +76,9 @@ export default {
     cleanAllAuthors() {
       this.selectedAuthors = [];
     },
+    addToUrl(author) {
+      
+    }
   }
 }
 </script>
@@ -111,7 +122,7 @@ export default {
       <h2>{{ timeSpan }} shown between {{ startDate }} and {{ endDate }}</h2>
       <div>Show authors:
         <label v-for="author in authors" v-bind:key="author" :style="'color: ' + colors[authors.indexOf(author)]">
-          <input type="checkbox" v-model="selectedAuthors" :value="author"> {{ author }}
+          <input type="checkbox" v-model="selectedAuthors" :value="author" @click="addToUrl(author)"> {{ author }}
         </label>
         <button @click="checkAllAuthors()" style="margin: 0 0 5px 5px">All authors</button>
         <button @click="cleanAllAuthors()" style="margin: 0 0 5px 5px">None
