@@ -63,7 +63,9 @@ export default {
         this.commits = data;
         // this.selectedAuthors = this.authors;
       });
-      this.selectedAuthors = this.$route.query.authors.split(',');
+      if (this.$route.query.authors) {
+        this.selectedAuthors = this.$route.query.authors.split(',');
+      }
   },
   methods: {
     clickAuthor(dat) {
