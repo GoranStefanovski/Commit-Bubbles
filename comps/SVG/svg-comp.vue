@@ -102,7 +102,7 @@ export default {
     <g>
 
 
-      <rect fill="#FEFCFF" x="100" :y="topMargin" width="1100" :height="chartHeight"
+      <rect fill="#FEFCFF" x="100" :y="topMargin" :width="windowWidth - 100" :height="chartHeight"
       />
       <g font-family="Verdana" font-size="16">
         <text x="0" :y="topMargin + 8">All Test</text>
@@ -111,13 +111,13 @@ export default {
         <text x="1140" :y="chartHeight/2 + 17 + topMargin">Time &#10148;</text>
       </g>
       <g style="stroke:rgb(0,0,0);stroke-width:2">
-        <line x1="100" :y1="chartHeight/2 + topMargin" x2="1200" :y2="chartHeight/2 + topMargin"/>
+        <line x1="100" :y1="chartHeight/2 + topMargin" :x2="windowWidth" :y2="chartHeight/2 + topMargin"/>
         <line x1="100" :y1="topMargin +2" x2="100" :y2="chartHeight + topMargin+2"/>
       </g>
       <g font-family="Verdana" font-size="8" v-for="i in [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]" v-bind:key="i"
          style="stroke:rgb(0,0,0);stroke-width:0.5">
         <line v-if="i !== 5" x1="100" stroke-dasharray="10,35"
-              :y1="chartHeight + 2 - (chartHeight/10 * i) + topMargin" x2="1200"
+              :y1="chartHeight + 2 - (chartHeight/10 * i) + topMargin" :x2="windowWidth"
               :y2="chartHeight - (chartHeight/10 * i) + topMargin"/>
         <text fill="white" x="70" :y="chartHeight + 3  - (chartHeight/10 * i) + topMargin">
           {{ 100 - (10 * i) }}:{{ (10 * i) }}
@@ -125,7 +125,7 @@ export default {
       </g>
       <g stroke="black">
         <circle v-for="commit in commits" v-bind:key="commit" v-show="selectedAuthors.indexOf(commit.author) > -1"
-                :cx="100 + (commit.ts - from) * 1100 / (to - from)"
+                :cx="100 + (commit.ts - from) * (windowWidth - 100) / (to - from)"
                 :cy="chartHeight - (commit.testPercentage * chartHeight/100) + topMargin"
                 :r="commit.size * (chartHeight/600)"
                 :stroke-opacity="(clickedCommit === commit.hash) ? 1 : 0"
