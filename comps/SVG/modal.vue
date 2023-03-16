@@ -17,11 +17,10 @@ export default {
 
 <template>
     <g font-family="Verdana" font-size="16" @click="setCommitZero()">
-      <rect style="stroke:rgb(0,0,0);stroke-width:2" x="300" y="300" height="300" width="400" fill="white"
+      <rect style="stroke:rgb(0,0,0);stroke-width:2" x="300" y="300" height="300" width="600" fill="white"
             opacity="0.7"/>
-      <text class="close-btn" @click="setCommitZero()" x="55%" y="330">X</text>
-      <text x="320" y="330">Sele
-        cted Commit</text>
+      <text class="close-btn" @click="setCommitZero()" x="810" y="330">X</text>
+      <text x="320" y="330">Selected Commit</text>
       <text x="320" y="380">Commit:</text>
       <foreignObject x="395" y="363" width="900" height="100">
         <a _target="_blank" v-bind:href="pickedCommitObject.commitUrl">
