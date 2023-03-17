@@ -99,7 +99,7 @@ export default {
   <svg xmlns="http://www.w3.org/2000/svg" xmlns:xl="http://www.w3.org/1999/xlink" version="1.1" width="1220"
        :height="chartHeight + topMargin + 5"
        xmlns:dc="http://purl.org/dc/elements/1.1/">
-    <g>
+    <g transform="translate(10,2.5) rotate(0)">
 
 
       <rect fill="#FEFCFF" x="100" :y="topMargin" :width="windowWidth - 100" :height="chartHeight"
