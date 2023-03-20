@@ -33,10 +33,10 @@ export default {
   },
   computed: {
     startDate() {
-      return moment(new Date(this.from)).format('MM/DD/yy HH:mm')
+      return moment(new Date(this.from)).format('Do MMMM yyyy')
     },
     endDate() {
-      return moment(new Date(this.to)).format('MM/DD/yy HH:mm')
+      return moment(new Date(this.to)).format('Do MMMM yyyy')
     },
     authors() {
       return _.uniq(_.map(this.commits, 'author'))
@@ -51,7 +51,9 @@ export default {
       return _.max(this.getValues)
     },
     timeSpan() {
-      return moment.duration(moment(this.from).diff(moment(this.to))).humanize()
+      let timespan = moment.duration(moment(this.from).diff(moment(this.to))).humanize();
+      timespan = timespan.charAt(0).toUpperCase() + timespan.slice(1)
+      return timespan;
     },
     getValues() {
       return _.map(this.commits, "ts")
@@ -87,7 +89,7 @@ export default {
 </script>
 
 <template>
-  <h2>{{ timeSpan }} shown between {{ startDate }} and {{ endDate }}</h2>
+  <h2>{{ timeSpan }} of commits shown between {{ startDate }} and {{ endDate }}</h2>
   <div>Show authors:
     <label v-for="author in authors" v-bind:key="author" :style="'color: ' + colors[authors.indexOf(author)]">
       <input type="checkbox" v-model="selectedAuthors" :value="author" @click="addToUrl(author)"> {{ author }}
@@ -96,7 +98,7 @@ export default {
     <button @click="cleanAllAuthors()" style="margin: 0 0 5px 5px">None
     </button>
   </div>
-  <svg xmlns="http://www.w3.org/2000/svg" xmlns:xl="http://www.w3.org/1999/xlink" version="1.1" width="1220"
+  <svg xmlns="http://www.w3.org/2000/svg" xmlns:xl="http://www.w3.org/1999/xlink" version="1.1" width="100%"
        :height="chartHeight + topMargin + 5"
        xmlns:dc="http://purl.org/dc/elements/1.1/">
     <g transform="translate(10,2.5) rotate(0)">
@@ -108,7 +110,7 @@ export default {
         <text x="0" :y="topMargin + 8">All Test</text>
         <text x="0" :y="chartHeight/2 + 5 + topMargin">Equal</text>
         <text x="0" :y="chartHeight + topMargin">All Prod</text>
-        <text x="1140" :y="chartHeight/2 + 17 + topMargin">Time &#10148;</text>
+        <text :x="windowWidth-70" :y="chartHeight/2 + 17 + topMargin">Time &#10148;</text>
       </g>
       <g style="stroke:rgb(0,0,0);stroke-width:2">
         <line x1="100" :y1="chartHeight/2 + topMargin" :x2="windowWidth" :y2="chartHeight/2 + topMargin"/>
