@@ -3,7 +3,9 @@ import SkModal from './modal.vue'
 
 export default {
   name: 'svg-comp',
-  props: {},
+  props: {
+    dataSource: Object
+  },
   components: {
     SkModal,
   },
@@ -60,7 +62,7 @@ export default {
     },
   },
   created() {
-    fetch('./comps/commits.json')
+    fetch(this.dataSource)
         .then(response => response.json())
         .then(data => {
           this.commits = data;
@@ -139,6 +141,9 @@ export default {
     </g>
 
   </svg>
+<!--  <pre>-->
+<!--    {{ dataSource }}-->
+<!--  </pre>-->
 </template>
 
 <style scoped>

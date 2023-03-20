@@ -7,7 +7,7 @@ export default {
 </script>
 
 <template>
-  <svg-comp></svg-comp>
+  <svg-comp :dataSource="'./comps/commits.json'"></svg-comp>
 </template>
 
 <style scoped>
