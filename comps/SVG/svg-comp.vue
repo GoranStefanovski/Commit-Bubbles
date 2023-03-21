@@ -4,7 +4,7 @@ import SkModal from './modal.vue'
 export default {
   name: 'svg-comp',
   props: {
-    dataSource: Object
+    dataSource: String
   },
   components: {
     SkModal,
