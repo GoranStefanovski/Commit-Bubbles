@@ -128,10 +128,12 @@ export default {
         </text>
       </g>
       <g stroke="black">
-        <circle v-for="commit in commits" v-bind:key="commit" v-show="selectedAuthors.indexOf(commit.author) > -1"
-                :cx="100 + (commit.ts - from) * (windowWidth - 100) / (to - from)"
-                :cy="chartHeight - (commit.testPercentage * chartHeight/100) + topMargin"
-                :r="commit.size * (chartHeight/600)"
+        <circle v-for="commit in commits" v-bind:key="commit"
+                :shown="selectedAuthors.indexOf(commit.author) > -1"
+                v-show="selectedAuthors.indexOf(commit.author) > -1"
+                :cx="Math.round(100 + (commit.ts - from) * (windowWidth - 100) / (to - from))"
+                :cy="Math.round(chartHeight - (commit.testPercentage * chartHeight/100) + topMargin)"
+                :r="Math.round(Math.sqrt(commit.size / Math.PI) * (chartHeight/150))"
                 :stroke-opacity="(clickedCommit === commit.hash) ? 1 : 0"
                 :fill="colors[authors.indexOf(commit.author)]" fill-opacity="0.5"
                 @click="clickAuthor(commit)"/>
